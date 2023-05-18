@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+"""This script checks if the source code matches the .clang-format file."""
+
+import argparse
+import difflib
+import io
+import os
+import subprocess
+import sys
+
+EXTENSIONS = "c, h, C, H, cpp, hpp, cc, hh, c++, h++, cxx, hxx"
+
+class ExitCode:
+    SUCCESS = 0
+    DIFF = 1
+    ERROR = 2
+
+class CommandNotFound(Exception):
+    def __init__(self, command, message):
+        super().__init__()
+
+        self._command = command
+        self._message = message
+
+    def __str__(self):
+        return f"Command '{self._command}' not found: {self._message}"
+
+class CommandFailed(Exception):
+    def __init__(self, command, message):
+        super().__init__()
+
+        self._command = command
+        self._message = message
+
+    def __str__(self):
+        return f"Command '{self._command}' failed to start: {self._message}"
+
+
+class ReadFileError(Exception):
+    def __init__(self, file, message):
+        super().__init__()
+
+        self._file = file
+        self._message = message
+
+    def __str__(self):
+        return f"Error reading file '{self._file}': {self._message}"
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+
+    parser.add_argument(
+        "-r", "--recursive",
+        action="store_true",
+        help="Recursively search for files to format")
+    parser.add_argument("files", metavar="file", nargs="+")
+
+    args = parser.parse_args()
+
+    try:
+        check_clang_format()
+    except CommandNotFound as e:
+        print_error(parser.prog, e)
+        return ExitCode.ERROR
+
+    files = get_files(args.files, recursive=args.recursive)
+
+    iterator = (run_clang_format(file) for file in files)
+
+    while True:
+        try:
+            file, original, formatted = next(iterator)
+            diff = get_diff(file, original, formatted)
+
+            sys.stdout.writelines(color_diff(diff))
+        except StopIteration:
+            break
+        except CommandFailed as e:
+            print_error(parser.prog, e)
+            return ExitCode.ERROR
+        except ReadFileError as e:
+            print_error(parser.prog, e)
+            return ExitCode.ERROR
+        else:
+            if diff:
+                return ExitCode.DIFF
+
+    return ExitCode.SUCCESS
+
+def check_clang_format():
+    version_invocation = ["clang-format", str("--version")]
+
+    try:
+        subprocess.check_call(version_invocation, stdout=subprocess.PIPE)
+    except OSError as e:
+        raise CommandNotFound(subprocess.list2cmdline(version_invocation), e) from e
+
+def get_files(files, recursive=False):
+    output = []
+
+    for file in files:
+        if recursive and os.path.isdir(file):
+            for folder, _, subfiles in os.walk(file):
+                paths = [os.path.join(folder, subfile) for subfile in subfiles]
+
+                for path in paths:
+                    if os.path.splitext(path)[1][1:] in EXTENSIONS:
+                        output.append(path)
+        else:
+            output.append(file)
+
+    return set(output)
+
+def run_clang_format(file):
+    try:
+        with io.open(file, "r", encoding="utf-8") as f:
+            original = f.readlines()
+    except (IOError, UnicodeDecodeError) as e:
+        raise ReadFileError(file, e) from e
+
+    invocation = ["clang-format", file]
+
+    try:
+        proc = subprocess.Popen(
+            invocation,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
+            encoding="utf-8")
+    except OSError as e:
+        raise CommandFailed(subprocess.list2cmdline(invocation), e) from e
+
+    output = list(proc.stdout.readlines())
+    errors = list(proc.stderr.readlines())
+
+    proc.wait()
+
+    if proc.returncode:
+        raise CommandFailed(subprocess.list2cmdline(invocation), errors)
+
+    return file, original, output
+
+def get_diff(file, original, formatted):
+    return list(
+        difflib.unified_diff(
+            original, formatted,
+            fromfile=f"{file}\t(original)", tofile=f"{file}\t(formatted)",
+            n=3))
+
+def color_diff(diff):
+    for line in diff:
+        if line[:4] in ['--- ', '+++ ']:
+            yield "\x1b[1m" + line + "\x1b[0m"
+        elif line.startswith('@@ '):
+            yield "\x1b[36m" + line + "\x1b[0m"
+        elif line.startswith('+'):
+            yield "\x1b[32m" + line + "\x1b[0m"
+        elif line.startswith('-'):
+            yield "\x1b[31m" + line + "\x1b[0m"
+        else:
+            yield line
+
+def print_error(command, message):
+    print(f"{command}: " + "\x1b[1m\x1b[31m" + "ERROR" + "\x1b[0m" + f" {message}", file=sys.stderr)
+
+if __name__ == "__main__":
+    sys.exit(main())
