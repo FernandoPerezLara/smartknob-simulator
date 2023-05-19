@@ -29,15 +29,15 @@ LIBS = $(shell $(PKGCONFIG) --libs gtkmm-4.0)
 
 # Create directories
 directories:
-	@echo -e "$(INFO) Creating directories"
+	@echo "$(INFO) Creating directories"
 	@mkdir -p $(dir $(OBJECTS))
 	@mkdir -p $(BIN_PATH)
 
 # Clean build files and directories
 clean:
-	@echo -e "$(INFO) Deleting $(BIN_NAME) symlink"
+	@echo "$(INFO) Deleting $(BIN_NAME) symlink"
 	@$(RM) $(BIN_NAME)
-	@echo -e "$(INFO) Deleting directories"
+	@echo "$(INFO) Deleting directories"
 	@$(RM) -r $(BUILD_PATH)
 	@$(RM) -r $(BIN_PATH)
 
@@ -47,18 +47,18 @@ build: directories
 
 # Create symlink on build
 symlink: $(BIN_PATH)/$(BIN_NAME)
-	@echo -e "$(INFO) Making symlink: $(BIN_NAME) -> $<"
+	@echo "$(INFO) Making symlink: $(BIN_NAME) -> $<"
 	@$(RM) $(BIN_NAME)
 	@ln -s $(BIN_PATH)/$(BIN_NAME) $(BIN_NAME)
 
 # Run project
 run: $(BIN_PATH)/$(BIN_NAME)
-	@echo -e "$(INFO) Running project"
+	@echo "$(INFO) Running project"
 	@$(BIN_PATH)/$(BIN_NAME)
 
 # Compile
 $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
-	@echo -e "$(INFO) Linking: $@"
+	@echo "$(INFO) Linking: $@"
 	$(CXX) $(OBJECTS) -o $@ ${LIBS}
 
 # Add dependency files
@@ -66,5 +66,5 @@ $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
 
 # Compile
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
-	@echo -e "$(INFO) Compiling: $< -> $@"
+	@echo "$(INFO) Compiling: $< -> $@"
 	$(CXX) $(COMPILE_FLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
