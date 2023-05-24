@@ -18,6 +18,6 @@ RUN apt update && \
     apt clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 # Install Python dependencies
-RUN pip install -U clang-format
+RUN python -m pip install -U clang-format
 
 CMD [ "./clang-format", "-r", "./src" ]
