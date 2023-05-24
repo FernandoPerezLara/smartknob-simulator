@@ -1,7 +1,7 @@
 ##########################################
-# Environment
+# Python
 ##########################################
-FROM debian:bookworm-slim AS environment
+FROM FROM python:3.11.2-slim AS python
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -10,14 +10,9 @@ WORKDIR /usr/src/app
 ##########################################
 # Linter
 ##########################################
-FROM environment AS linter
-
-# Install packages
-RUN apt update && \
-    apt install python3 python3-pip -y && \
-    apt clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
+FROM python AS linter
 
 # Install Python dependencies
-RUN python3 -m pip install -U clang-format
+RUN pip install -U clang-format
 
 CMD [ "./clang-format", "-r", "./src" ]
