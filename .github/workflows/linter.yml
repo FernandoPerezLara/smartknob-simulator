@@ -15,6 +15,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Build image
+        run: |
+          docker compose build linter
+
       - name: Linter
         run: |
           docker compose run linter
