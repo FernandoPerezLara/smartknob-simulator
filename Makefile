@@ -12,13 +12,17 @@ SRC_PATH = src
 BUILD_PATH = build
 BIN_PATH = $(BUILD_PATH)/bin
 BIN_NAME = runner
+RESOURCE_XML = $(SRC_PATH)/gresource.xml
+RESOURCE_SRC = $(BUILD_PATH)/resources.c
+RESOURCE_HDR = $(BUILD_PATH)/resources.h
+RESOURCE_OBJ = $(BUILD_PATH)/resources.o
 
 # Extensions
 SRC_EXT = cpp
 
 # List of source files, compilation objects and dependecies
 SOURCES = $(shell find $(SRC_PATH) -name "*.$(SRC_EXT)" | sort -k 1nr | cut -f2-)
-OBJECTS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
+OBJECTS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o) $(RESOURCE_OBJ)
 DEPS = $(OBJECTS:.o=.d)
 
 # Compiler configuration
@@ -29,36 +33,41 @@ LIBS = $(shell $(PKGCONFIG) --libs gtkmm-4.0)
 
 # Create directories
 directories:
-	@echo "$(INFO) Creating directories"
+	@printf "$(INFO) Creating directories\n"
 	@mkdir -p $(dir $(OBJECTS))
 	@mkdir -p $(BIN_PATH)
 
 # Clean build files and directories
 clean:
-	@echo "$(INFO) Deleting $(BIN_NAME) symlink"
+	@printf "$(INFO) Deleting $(BIN_NAME) symlink\n"
 	@$(RM) $(BIN_NAME)
-	@echo "$(INFO) Deleting directories"
+	@printf "$(INFO) Deleting directories\n"
 	@$(RM) -r $(BUILD_PATH)
 	@$(RM) -r $(BIN_PATH)
 
 # Create directories on build
-build: directories
+build: directories compile_resources
 	@$(MAKE) symlink
 
 # Create symlink on build
 symlink: $(BIN_PATH)/$(BIN_NAME)
-	@echo "$(INFO) Making symlink: $(BIN_NAME) -> $<"
+	@printf "$(INFO) Making symlink: $(BIN_NAME) -> $<\n"
 	@$(RM) $(BIN_NAME)
 	@ln -s $(BIN_PATH)/$(BIN_NAME) $(BIN_NAME)
 
 # Run project
 run: $(BIN_PATH)/$(BIN_NAME)
-	@echo "$(INFO) Running project"
+	@printf "$(INFO) Running project\n"
 	@$(BIN_PATH)/$(BIN_NAME)
+
+compile_resources:
+	@printf "$(INFO) Compiling resources\n"
+	@glib-compile-resources $(RESOURCE_XML) --target=$(RESOURCE_SRC) --sourcedir=$(SRC_PATH) --generate-source
+	@glib-compile-resources $(RESOURCE_XML) --target=$(RESOURCE_HDR) --sourcedir=$(SRC_PATH) --generate-header
 
 # Compile
 $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
-	@echo "$(INFO) Linking: $@"
+	@printf "$(INFO) Linking: $@\n"
 	$(CXX) $(OBJECTS) -o $@ ${LIBS}
 
 # Add dependency files
@@ -66,5 +75,9 @@ $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
 
 # Compile
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
-	@echo "$(INFO) Compiling: $< -> $@"
+	@printf "$(INFO) Compiling: $< -> $@\n"
 	$(CXX) $(COMPILE_FLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+
+$(RESOURCE_OBJ): $(RESOURCE_SRC)
+	@printf "$(INFO) Compiling: $< -> $@\n"
+	$(CXX) $(COMPILE_FLAGS) $(INCLUDES) -c $< -o $@

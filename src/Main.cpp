@@ -1,10 +1,7 @@
-#include "gtkmm.h"
-
-#include "windows/MainWindow/MainWindow.h"
+#include "Application/Application.h"
 
 int main(int argc, char* argv[]) {
-  Glib::RefPtr<Gtk::Application> app =
-      Gtk::Application::create("com.smartknob.simulator");
+  auto application = Application::create();
 
-  return app->make_window_and_run<MainWindow>(argc, argv);
+  return application->run(argc, argv);
 }
