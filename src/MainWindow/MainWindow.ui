@@ -18,11 +18,9 @@
     </child>
 
     <child>
-      <object class="GtkBox" id="content_box">
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkStack" id="stack"/>
-        </child>
+      <object class="GtkDrawingArea" id="drawing_area">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
       </object>
     </child>
   </object>

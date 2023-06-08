@@ -11,8 +11,12 @@ class MainWindow : public Gtk::ApplicationWindow {
     static MainWindow* create();
 
   private:
+    void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
+                 int height);
+
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::MenuButton* m_gears { nullptr };
+    Gtk::DrawingArea* m_drawingArea { nullptr };
 };
 
 #endif
