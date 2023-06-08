@@ -12,6 +12,7 @@ class MainWindow : public Gtk::ApplicationWindow {
 
   private:
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
+    Gtk::MenuButton* m_gears { nullptr };
 };
 
 #endif

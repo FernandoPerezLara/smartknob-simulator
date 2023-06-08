@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <requires lib="gtk" version="4.0"/>
   <object class="GtkApplicationWindow" id="app_window">
-    <property name="title" translatable="yes">Example Application</property>
+    <property name="title" translatable="yes">Smartknob Simulator</property>
     <property name="default-width">600</property>
     <property name="default-height">400</property>
-    <property name="hide-on-close">True</property>
+    
+    <child type="titlebar">
+      <object class="GtkHeaderBar">
+        <child type="end">
+          <object class="GtkMenuButton" id="gears">
+            <property name="icon-name">open-menu-symbolic</property>
+            <property name="primary">true</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
     <child>
       <object class="GtkBox" id="content_box">
         <property name="orientation">vertical</property>
