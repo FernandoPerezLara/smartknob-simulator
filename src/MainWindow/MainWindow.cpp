@@ -6,8 +6,8 @@ MainWindow::MainWindow(BaseObjectType* cobject,
     m_refBuilder(refBuilder) { }
 
 MainWindow* MainWindow::create() {
-  auto refBuilder =
-      Gtk::Builder::create_from_resource("/com/smartknob/simulator/MainWindow/MainWindow.ui");
+  auto refBuilder = Gtk::Builder::create_from_resource(
+      "/com/smartknob/simulator/MainWindow/MainWindow.ui");
 
   auto window =
       Gtk::Builder::get_widget_derived<MainWindow>(refBuilder, "app_window");

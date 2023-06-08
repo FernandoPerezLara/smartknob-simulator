@@ -13,9 +13,8 @@ BUILD_PATH = build
 BIN_PATH = $(BUILD_PATH)/bin
 BIN_NAME = runner
 RESOURCE_XML = $(SRC_PATH)/gresource.xml
-RESOURCE_SRC = $(BUILD_PATH)/resources.c
-RESOURCE_HDR = $(BUILD_PATH)/resources.h
-RESOURCE_OBJ = $(BUILD_PATH)/resources.o
+RESOURCE_SRC = $(BUILD_PATH)/MainWindow/resources.c
+RESOURCE_OBJ = $(BUILD_PATH)/MainWindow/resources.o
 
 # Extensions
 SRC_EXT = cpp
@@ -49,6 +48,10 @@ clean:
 build: directories compile_resources
 	@$(MAKE) symlink
 
+compile_resources:
+	@printf "$(INFO) Compiling resources\n"
+	@glib-compile-resources $(RESOURCE_XML) --target=$(RESOURCE_SRC) --sourcedir=$(SRC_PATH) --generate-source
+
 # Create symlink on build
 symlink: $(BIN_PATH)/$(BIN_NAME)
 	@printf "$(INFO) Making symlink: $(BIN_NAME) -> $<\n"
@@ -59,11 +62,6 @@ symlink: $(BIN_PATH)/$(BIN_NAME)
 run: $(BIN_PATH)/$(BIN_NAME)
 	@printf "$(INFO) Running project\n"
 	@$(BIN_PATH)/$(BIN_NAME)
-
-compile_resources:
-	@printf "$(INFO) Compiling resources\n"
-	@glib-compile-resources $(RESOURCE_XML) --target=$(RESOURCE_SRC) --sourcedir=$(SRC_PATH) --generate-source
-	@glib-compile-resources $(RESOURCE_XML) --target=$(RESOURCE_HDR) --sourcedir=$(SRC_PATH) --generate-header
 
 # Compile
 $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
