@@ -1,0 +1,18 @@
+##########################################
+# Python
+##########################################
+FROM python:3.11.2-slim AS python
+
+# Create app directory
+WORKDIR /usr/src/app
+
+
+##########################################
+# Linter
+##########################################
+FROM python AS linter
+
+# Install Python dependencies
+RUN pip install -U clang-format
+
+CMD [ "./clang-format", "-r", "./src" ]

@@ -12,3 +12,12 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/usr/src/app
+
+  linter:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.linter
+    image: linter
+    container_name: linter
+    volumes:
+      - .:/usr/src/app
