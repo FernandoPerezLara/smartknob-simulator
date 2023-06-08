@@ -76,6 +76,7 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@printf "$(INFO) Compiling: $< -> $@\n"
 	$(CXX) $(COMPILE_FLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
+# Compile resources
 $(RESOURCE_OBJ): $(RESOURCE_SRC)
 	@printf "$(INFO) Compiling: $< -> $@\n"
 	$(CXX) $(COMPILE_FLAGS) $(INCLUDES) -c $< -o $@
