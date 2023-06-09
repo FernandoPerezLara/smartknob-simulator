@@ -4,7 +4,8 @@
   <object class="GtkApplicationWindow" id="app_window">
     <property name="title" translatable="yes">Smartknob Simulator</property>
     <property name="default-width">600</property>
-    <property name="default-height">400</property>
+    <property name="default-height">349</property>
+    <property name="resizable">False</property>
     
     <child type="titlebar">
       <object class="GtkHeaderBar">
@@ -21,6 +22,9 @@
       <object class="GtkDrawingArea" id="drawing_area">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+        <style>
+          <class name="drawing_area"/>
+        </style>
       </object>
     </child>
   </object>
