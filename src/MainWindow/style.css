@@ -1,3 +1,12 @@
-.drawing_area {
-  background-color: red;
+#content {
+  padding: 30px;
+}
+
+#display {
+  min-width: 240px;
+  min-height: 240px;
+}
+
+#slider {
+  margin-top: 25px;
 }

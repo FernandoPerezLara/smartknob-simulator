@@ -2,7 +2,6 @@
 <gresources>
   <gresource prefix="/com/smartknob/simulator">
     <file>MainWindow/MainWindow.ui</file>
-    <file>MainWindow/Menu.ui</file>
     <file>MainWindow/style.css</file>
   </gresource>
 </gresources>
