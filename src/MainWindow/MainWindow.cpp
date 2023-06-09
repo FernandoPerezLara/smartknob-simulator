@@ -19,6 +19,13 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   m_drawingArea->set_content_width(DISPLAY_SIZE);
   m_drawingArea->set_content_height(DISPLAY_SIZE);
   m_drawingArea->set_draw_func(sigc::mem_fun(*this, &MainWindow::on_draw));
+
+  // m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
+  // auto click_gesture = Gtk::GestureClick::create();
+  // click_gesture->signal_released().connect([this](int, double, double){
+  //   this->m_slider->set_value(50);
+  // });
+  // m_drawingArea->add_controller(click_gesture);
 }
 
 MainWindow* MainWindow::create() {
