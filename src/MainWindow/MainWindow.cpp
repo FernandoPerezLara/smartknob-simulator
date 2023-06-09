@@ -16,6 +16,8 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   m_gears->set_menu_model(menu);
 
   m_drawingArea = m_refBuilder->get_widget<Gtk::DrawingArea>("drawing_area");
+  m_drawingArea->set_content_width(DISPLAY_SIZE);
+  m_drawingArea->set_content_height(DISPLAY_SIZE);
   m_drawingArea->set_draw_func(sigc::mem_fun(*this, &MainWindow::on_draw));
 }
 
@@ -33,9 +35,7 @@ void MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
   (void) width;
   (void) height;
 
-  double size = 120;
-
-  cr->set_source_rgb(0.0, 0.0, 0.0);
-  cr->arc(size, size, size, 0.0, 2.0 * M_PI);
+  cr->set_source_rgb(0, 0, 0);
+  cr->arc(DISPLAY_SIZE/2, DISPLAY_SIZE/2 , DISPLAY_SIZE/2, 0, 2*M_PI);
   cr->fill();
 }

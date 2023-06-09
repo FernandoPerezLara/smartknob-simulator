@@ -17,6 +17,8 @@ class MainWindow : public Gtk::ApplicationWindow {
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::MenuButton* m_gears { nullptr };
     Gtk::DrawingArea* m_drawingArea { nullptr };
+
+    static constexpr double DISPLAY_SIZE = 240;
 };
 
 #endif
