@@ -9,12 +9,8 @@ on:
     branches: [ main ]
 
 jobs:
-  linter:
+  CI:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./linter.yml
-
-  builder:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./builder.yml
+      - uses: .github/workflows/linter.yaml
+      - uses: .github/workflows/builder.yaml
