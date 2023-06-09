@@ -1,18 +1,16 @@
-# Quiero que se carguen los jobs de linter.yml y de builder.yml
+# name: Linter
 
-name: Linter
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  CI:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Linter
-        uses: .github/workflows/linter.yaml
-      - name: Builder
-        uses: .github/workflows/builder.yaml
+# jobs:
+#   CI:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Linter
+#         uses: .github/workflows/linter.yaml
+#       - name: Builder
+#         uses: .github/workflows/builder.yaml

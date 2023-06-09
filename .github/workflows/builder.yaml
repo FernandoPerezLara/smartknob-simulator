@@ -1,21 +1,21 @@
-name: Run builder
+# name: Run builder
 
-on:
-  workflow_dispatch:
+# on:
+#   workflow_dispatch:
 
-jobs:
-  builder:
-    runs-on: ubuntu-latest
+# jobs:
+#   builder:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           submodules: recursive
 
-      - name: Build image
-        run: |
-          docker compose build app
+#       - name: Build image
+#         run: |
+#           docker compose build app
 
-      - name: Build project
-        run: |
-          docker compose run make build
+#       - name: Build project
+#         run: |
+#           docker compose run make build
