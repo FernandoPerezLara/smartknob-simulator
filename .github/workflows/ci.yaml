@@ -12,5 +12,7 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - uses: .github/workflows/linter.yaml
-      - uses: .github/workflows/builder.yaml
+      - name: Linter
+        uses: .github/workflows/linter.yaml
+      - name: Builder
+        uses: .github/workflows/builder.yaml
