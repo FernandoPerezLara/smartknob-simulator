@@ -43,6 +43,6 @@ void MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
   (void) height;
 
   cr->set_source_rgb(0, 0, 0);
-  cr->arc(DISPLAY_SIZE/2, DISPLAY_SIZE/2 , DISPLAY_SIZE/2, 0, 2*M_PI);
+  cr->arc(DISPLAY_SIZE / 2, DISPLAY_SIZE / 2, DISPLAY_SIZE / 2, 0, 2 * M_PI);
   cr->fill();
 }
