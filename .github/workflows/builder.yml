@@ -1,0 +1,24 @@
+name: Run builder
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  builder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build image
+        run: |
+          docker compose build app
+
+      - name: Build project
+        run: |
+          docker compose run make build
