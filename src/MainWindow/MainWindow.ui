@@ -44,7 +44,17 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="name">label</property>
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Steps: 32</property>
+          </object>
+        </child>
+
       </object>
+
     </child>
   </object>
 

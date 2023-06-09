@@ -10,3 +10,12 @@
 #slider {
   margin-top: 25px;
 }
+
+#label {
+ /* display in the top right corner */
+  margin-left: 80px;
+  margin-top: -200px;
+  font-size: 15px;
+  color: grey;
+
+}
