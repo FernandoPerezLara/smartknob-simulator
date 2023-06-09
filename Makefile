@@ -59,7 +59,7 @@ symlink: $(BIN_PATH)/$(BIN_NAME)
 	@ln -s $(BIN_PATH)/$(BIN_NAME) $(BIN_NAME)
 
 # Run project
-run: $(BIN_PATH)/$(BIN_NAME)
+run: build
 	@printf "$(INFO) Running project\n"
 	@$(BIN_PATH)/$(BIN_NAME)
 
