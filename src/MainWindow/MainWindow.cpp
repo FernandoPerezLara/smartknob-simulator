@@ -17,6 +17,13 @@ MainWindow::MainWindow(BaseObjectType* cobject,
 
   m_drawingArea = m_refBuilder->get_widget<Gtk::DrawingArea>("drawing_area");
   m_drawingArea->set_draw_func(sigc::mem_fun(*this, &MainWindow::on_draw));
+
+  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
+
+  m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
+  if (m_slider) {
+    m_slider->signal_value_changed().connect(sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
+  }
 }
 
 MainWindow* MainWindow::create() {
@@ -38,4 +45,14 @@ void MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
   cr->set_source_rgb(0.0, 0.0, 0.0);
   cr->arc(size, size, size, 0.0, 2.0 * M_PI);
   cr->fill();
+}
+
+void MainWindow::on_slider_value_changed() {
+  updateStepsLabel();
+}
+
+void MainWindow::updateStepsLabel() {
+  int value = static_cast<int>(m_slider->get_value());
+  std::string labelText = "Steps: " + std::to_string(value);
+  m_label->set_label(labelText);
 }

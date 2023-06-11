@@ -49,7 +49,7 @@
           <object class="GtkLabel" id="label">
             <property name="name">label</property>
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Steps: 32</property>
+            <property name="label" translatable="yes">Steps: </property>
           </object>
         </child>
 

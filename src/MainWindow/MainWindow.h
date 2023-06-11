@@ -4,19 +4,23 @@
 #include "gtkmm.h"
 
 class MainWindow : public Gtk::ApplicationWindow {
-  public:
-    MainWindow(BaseObjectType* cobject,
-               const Glib::RefPtr<Gtk::Builder>& refBuilder);
+public:
+  MainWindow(BaseObjectType* cobject,
+             const Glib::RefPtr<Gtk::Builder>& refBuilder);
 
-    static MainWindow* create();
+  static MainWindow* create();
 
-  private:
-    void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
-                 int height);
+private:
+  void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height);
+  void on_slider_value_changed();
+  
+  void updateStepsLabel();
 
-    Glib::RefPtr<Gtk::Builder> m_refBuilder;
-    Gtk::MenuButton* m_gears { nullptr };
-    Gtk::DrawingArea* m_drawingArea { nullptr };
+  Glib::RefPtr<Gtk::Builder> m_refBuilder;
+  Gtk::MenuButton* m_gears { nullptr };
+  Gtk::DrawingArea* m_drawingArea { nullptr };
+  Gtk::Label* m_label { nullptr };
+  Gtk::Scale* m_slider { nullptr };
 };
 
 #endif
