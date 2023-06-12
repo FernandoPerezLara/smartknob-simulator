@@ -55,7 +55,7 @@
                 <child>
                   <object class="GtkLabel" id="label">
                     <property name="visible">True</property>
-                    <property name="label">Steps: </property>
+                    <property name="label">Steps: Null</property>
                   </object>
                 </child>
               </object>
