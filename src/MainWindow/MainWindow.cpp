@@ -20,13 +20,12 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   m_drawingArea->set_content_height(DISPLAY_SIZE);
   m_drawingArea->set_draw_func(sigc::mem_fun(*this, &MainWindow::on_draw));
 
-  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
-
   m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
-  if (m_slider) {
-    m_slider->signal_value_changed().connect(
-        sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
-  }
+  m_slider->signal_value_changed().connect(
+      sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
+
+  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
+  updateStepsLabel();
 
   // m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
   // auto click_gesture = Gtk::GestureClick::create();
@@ -61,6 +60,8 @@ void MainWindow::on_slider_value_changed() {
 
 void MainWindow::updateStepsLabel() {
   int value = static_cast<int>(m_slider->get_value());
+
   std::string labelText = "Steps: " + std::to_string(value);
+
   m_label->set_label(labelText);
 }
