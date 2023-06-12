@@ -7,11 +7,7 @@
   padding: 0px;
 }
 
-#label {
- /* display in the top right corner */
-  margin-left: 80px;
-  margin-top: -200px;
-  font-size: 15px;
-  color: grey;
-
+#info {
+  min-width: 300px;
+  margin-left: 30px;
 }

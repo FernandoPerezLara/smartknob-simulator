@@ -42,13 +42,26 @@
         </child>
 
         <child>
-          <object class="GtkLabel" id="label">
-            <property name="name">label</property>
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Steps: </property>
+          <object class="GtkBox">
+            <property name="name">info</property>
+            <property name="orientation">vertical</property>
+            <property name="valign">center</property>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="halign">start</property>
+                
+                <child>
+                  <object class="GtkLabel" id="label">
+                    <property name="visible">True</property>
+                    <property name="label">Steps: </property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
-
       </object>
 
     </child>
