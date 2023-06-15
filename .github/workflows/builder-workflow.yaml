@@ -1,0 +1,21 @@
+name: 'Reusable Builder Workflow'
+
+on:
+  workflow_call:
+
+jobs:
+  builder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build image
+        run: |
+          docker compose build app
+
+      - name: Build project
+        run: |
+          docker compose run make build

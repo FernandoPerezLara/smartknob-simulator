@@ -1,0 +1,21 @@
+name: Reusable Linter Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build image
+        run: |
+          docker compose build linter
+
+      - name: Linter
+        run: |
+          docker compose run linter
