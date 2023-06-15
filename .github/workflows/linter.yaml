@@ -1,21 +1,24 @@
-# name: Run linter
+name: Run linter
 
-# on:
-#   workflow_dispatch:
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 
-# jobs:
-#   linter:
-#     runs-on: ubuntu-latest
+jobs:
+  linter:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           submodules: recursive
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-#       - name: Build image
-#         run: |
-#           docker compose build linter
+      - name: Build image
+        run: |
+          docker compose build linter
 
-#       - name: Linter
-#         run: |
-#           docker compose run linter
+      - name: Linter
+        run: |
+          docker compose run linter
