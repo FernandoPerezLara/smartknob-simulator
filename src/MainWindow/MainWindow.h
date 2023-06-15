@@ -15,7 +15,7 @@ class MainWindow : public Gtk::ApplicationWindow {
                  int height);
     void on_slider_value_changed();
 
-    void updateStepsLabel();
+    void update_steps_label();
 
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::MenuButton* m_gears { nullptr };

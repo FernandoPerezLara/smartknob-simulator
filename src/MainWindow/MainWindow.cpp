@@ -25,7 +25,7 @@ MainWindow::MainWindow(BaseObjectType* cobject,
       sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
 
   m_label = m_refBuilder->get_widget<Gtk::Label>("label");
-  updateStepsLabel();
+  update_steps_label();
 
   // m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
   // auto click_gesture = Gtk::GestureClick::create();
@@ -55,10 +55,10 @@ void MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
 }
 
 void MainWindow::on_slider_value_changed() {
-  updateStepsLabel();
+  update_steps_label();
 }
 
-void MainWindow::updateStepsLabel() {
+void MainWindow::update_steps_label() {
   int value = static_cast<int>(m_slider->get_value());
 
   std::string labelText = "Steps: " + std::to_string(value);
