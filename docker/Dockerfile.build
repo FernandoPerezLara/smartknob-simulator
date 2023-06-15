@@ -14,5 +14,5 @@ FROM environment AS build
 
 # Install packages
 RUN apt update && \
-    apt install make build-essential libgtkmm-4.0-dev -y && \
+    apt install make build-essential libgtkmm-4.0-dev libyaml-cpp-dev -y && \
     apt clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
