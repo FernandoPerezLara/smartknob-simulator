@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: linter
-        uses: ./.github/workflows/linter-workflow.yml
+        uses: ./.github/workflows/linter-workflow.yaml
 
       - name: builder
-        uses: ./.github/workflows/builder-workflow.yml
+        uses: ./.github/workflows/builder-workflow.yaml
