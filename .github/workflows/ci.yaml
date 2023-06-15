@@ -8,8 +8,8 @@ on:
 
 jobs:
   linter:
-    uses: ./.github/workflows/linter.yaml
+    uses: ./.github/workflows/.reusable-workflow-linter.yaml
 
   builder:
     needs: linter
-    uses: ./.github/workflows/builder.yaml
+    uses: ./.github/workflows/.reusable-workflow-builder.yaml
