@@ -28,7 +28,7 @@ DEPS = $(OBJECTS:.o=.d)
 PKGCONFIG = $(shell which pkg-config)
 COMPILE_FLAGS = -std=c++17 -Wall -Wextra -g
 INCLUDES = -I include/ -I /usr/local/include $(shell $(PKGCONFIG) --cflags gtkmm-4.0)
-LIBS = $(shell $(PKGCONFIG) --libs gtkmm-4.0)
+LIBS = $(shell $(PKGCONFIG) --libs gtkmm-4.0) -lyaml-cpp
 
 # Create directories
 directories:

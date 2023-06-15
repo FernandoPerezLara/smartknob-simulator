@@ -1,0 +1,17 @@
+card:
+  cursor:
+    minimum: 0
+    maximum: 100
+    default_position: 0
+    steps:
+      value: 100
+      size: 1
+      haptic_response: false
+  name: "Bedroom"
+  icon:
+    type: "lightbulb"
+    on_color: "yellow"
+    off_color: "white"
+  signal:
+    move: "set_brightness"
+    press: "toggle"
