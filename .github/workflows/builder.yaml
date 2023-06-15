@@ -1,8 +1,12 @@
+name: Build project 
+
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   builder:
+    name: Build project
     runs-on: ubuntu-latest
 
     steps:

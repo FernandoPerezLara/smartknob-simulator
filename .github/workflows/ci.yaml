@@ -1,4 +1,4 @@
-name: Run linter and builder
+name: Run linter and build project
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
 
 jobs:
   linter:
-    uses: ./.github/workflows/.reusable-workflow-linter.yaml
+    uses: ./.github/workflows/linter.yaml
 
   builder:
     needs: linter
-    uses: ./.github/workflows/.reusable-workflow-builder.yaml
+    uses: ./.github/workflows/builder.yaml

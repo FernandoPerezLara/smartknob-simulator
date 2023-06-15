@@ -1,8 +1,12 @@
+name: Check code style
+
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   linter:
+    name: Linter
     runs-on: ubuntu-latest
 
     steps:
