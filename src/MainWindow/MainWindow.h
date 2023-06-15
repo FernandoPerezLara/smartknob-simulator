@@ -3,6 +3,8 @@
 
 #include "gtkmm.h"
 
+#include "../Display/Display.h"
+
 class MainWindow : public Gtk::ApplicationWindow {
   public:
     MainWindow(BaseObjectType* cobject,
@@ -24,6 +26,8 @@ class MainWindow : public Gtk::ApplicationWindow {
     Gtk::Scale* m_slider { nullptr };
 
     static constexpr double DISPLAY_SIZE = 240;
+
+    Display display;
 };
 
 #endif

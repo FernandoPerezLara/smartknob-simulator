@@ -49,9 +49,17 @@ void MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
   (void) width;
   (void) height;
 
+  display.setCanvas(cr);
+
   cr->set_source_rgb(0, 0, 0);
   cr->arc(DISPLAY_SIZE / 2, DISPLAY_SIZE / 2, DISPLAY_SIZE / 2, 0, 2 * M_PI);
   cr->fill();
+
+  display.drawPixel(120, 120, 0xF800);
+  display.drawPixel(120, 121, 0x001F);
+  display.drawPixel(121, 120, 0x07E0);
+  display.drawLine(0, 0, 240, 240, 0xF800);
+  display.drawCircleFill(120, 10, 5, 0x07E0);
 }
 
 void MainWindow::on_slider_value_changed() {
