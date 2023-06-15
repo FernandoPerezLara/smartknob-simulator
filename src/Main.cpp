@@ -8,7 +8,7 @@ struct Steps {
     bool haptic_response;
 };
 
-struct Cursor {
+struct Pointer {
     int minimum;
     int maximum;
     int default_position;
@@ -23,12 +23,12 @@ struct Icon {
 
 struct Signal {
     std::string move;
-    std::string press;
+    std::string hold;
 };
 
 struct Card {
-    Cursor cursor;
     std::string name;
+    Pointer pointer;
     Icon icon;
     Signal signal;
 };
@@ -39,11 +39,11 @@ void operator>>(const YAML::Node& node, Steps& steps) {
   steps.haptic_response = node["haptic_response"].as<bool>();
 }
 
-void operator>>(const YAML::Node& node, Cursor& cursor) {
-  cursor.minimum = node["minimum"].as<int>();
-  cursor.maximum = node["maximum"].as<int>();
-  cursor.default_position = node["default_position"].as<int>();
-  node["steps"] >> cursor.steps;
+void operator>>(const YAML::Node& node, Pointer& pointer) {
+  pointer.minimum = node["minimum"].as<int>();
+  pointer.maximum = node["maximum"].as<int>();
+  pointer.default_position = node["default_position"].as<int>();
+  node["steps"] >> pointer.steps;
 }
 
 void operator>>(const YAML::Node& node, Icon& icon) {
@@ -54,21 +54,21 @@ void operator>>(const YAML::Node& node, Icon& icon) {
 
 void operator>>(const YAML::Node& node, Signal& signal) {
   signal.move = node["move"].as<std::string>();
-  signal.press = node["press"].as<std::string>();
+  signal.hold = node["hold"].as<std::string>();
 }
 
 void operator>>(const YAML::Node& node, Card& card) {
-  node["cursor"] >> card.cursor;
   card.name = node["name"].as<std::string>();
+  node["pointer"] >> card.pointer;
   node["icon"] >> card.icon;
   node["signal"] >> card.signal;
 }
 
 int main() {
-  std::ifstream fin("./config.yaml");
-  YAML::Node doc = YAML::Load(fin);
+  YAML::Node doc = YAML::LoadFile("config.yaml");
 
   Card card;
+  
   doc["card"] >> card;
 
   std::cout << "Icon Type: " << card.icon.type << std::endl;
