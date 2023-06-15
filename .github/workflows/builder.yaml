@@ -1,4 +1,4 @@
-name: 'Reusable Builder Workflow'
+name: Reusable Builder Workflow
 
 on:
   workflow_call:
