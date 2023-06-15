@@ -16,8 +16,8 @@ jobs:
 
       - name: Build image
         run: |
-          docker compose build app
+          docker compose -f docker-compose.yml build app
 
       - name: Build project
         run: |
-          docker compose run make build
+          docker compose -f docker-compose.yml run app make build
