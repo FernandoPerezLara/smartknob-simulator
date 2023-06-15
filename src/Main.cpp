@@ -1,5 +1,3 @@
-#include <fstream>
-#include <iostream>
 #include <yaml-cpp/yaml.h>
 
 struct Steps {
@@ -33,6 +31,8 @@ struct Card {
     Signal signal;
 };
 
+typedef std::vector<Card> Cards;
+
 void operator>>(const YAML::Node& node, Steps& steps) {
   steps.value = node["value"].as<int>();
   steps.size = node["size"].as<int>();
@@ -64,14 +64,24 @@ void operator>>(const YAML::Node& node, Card& card) {
   node["signal"] >> card.signal;
 }
 
+void operator>>(const YAML::Node& node, Cards& cards) {
+  for (std::size_t i = 0; i < node.size(); i++) {
+    Card card;
+
+    node[i] >> card;
+    cards.push_back(card);
+  }
+}
+
 int main() {
   YAML::Node doc = YAML::LoadFile("config.yaml");
 
-  Card card;
-  
-  doc["card"] >> card;
+  Cards cards;
 
-  std::cout << "Icon Type: " << card.icon.type << std::endl;
+  doc["cards"] >> cards;
+
+  printf("Name: %s \n", cards[0].name.c_str());
+  printf("Icon Type: %s \n", cards[0].icon.type.c_str());
 
   return 0;
 }

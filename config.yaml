@@ -1,17 +1,34 @@
-card:
-  cursor:
-    minimum: 0
-    maximum: 100
-    default_position: 0
-    steps:
-      value: 100
-      size: 1
-      haptic_response: false
-  name: "Bedroom"
-  icon:
-    type: "lightbulb"
-    on_color: "yellow"
-    off_color: "white"
-  signal:
-    move: "set_brightness"
-    press: "toggle"
+cards:
+  - name: "Bedroom"
+    pointer:
+      minimum: 0
+      maximum: 100
+      default_position: 0
+      steps:
+        value: 100
+        size: 1
+        haptic_response: false
+    icon:
+      type: "lightbulb"
+      on_color: "yellow"
+      off_color: "white"
+    signal:
+      move: "set_brightness"
+      hold: "toggle"
+
+  - name: "Alarm"
+    pointer:
+      minimum: 0
+      maximum: 1
+      default_position: -45
+      steps:
+        value: 2
+        size: 45
+        haptic_response: true
+    icon:
+      type: "home"
+      on_color: "red"
+      off_color: "white"
+    signal:
+      move: "set_value"
+      hold: "none"
