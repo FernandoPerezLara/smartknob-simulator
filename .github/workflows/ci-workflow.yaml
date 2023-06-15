@@ -1,0 +1,18 @@
+name: Run linter and builder
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: linter
+        uses: ./.github/workflows/linter-workflow.yml
+
+      - name: builder
+        uses: ./.github/workflows/builder-workflow.yml
