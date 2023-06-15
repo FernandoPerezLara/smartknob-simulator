@@ -1,12 +1,7 @@
-#include "Cards/Cards.h"
+#include "Application/Application.h"
 
-int main(int argc, char const *argv[]) {
-  Cards cards;
+int main(int argc, char* argv[]) {
+  auto application = Application::create();
 
-  cards.load_file("config.yaml");
-
-  printf("Name: %s \n", cards.items[0].name.c_str());
-  printf("Icon Type: %s \n", cards.items[0].icon.type.c_str());
-
-  return 0;
+  return application->run(argc, argv);
 }
