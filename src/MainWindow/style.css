@@ -11,3 +11,7 @@
   min-width: 300px;
   margin-left: 30px;
 }
+
+#info > * box {
+  margin-left: 20px;
+}

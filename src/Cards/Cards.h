@@ -19,8 +19,8 @@ struct Pointer {
 
 struct Icon {
     std::string type;
-    std::string on_color;
-    std::string off_color;
+    std::string color_on;
+    std::string color_off;
 };
 
 struct Signal {

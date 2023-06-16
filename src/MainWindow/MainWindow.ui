@@ -25,6 +25,7 @@
         <child>
           <object class="GtkBox">
             <property name="orientation">vertical</property>
+            <property name="valign">center</property>
 
             <child>
               <object class="GtkDrawingArea" id="drawing_area"/>
@@ -51,11 +52,156 @@
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
                 <property name="halign">start</property>
-                
+
                 <child>
-                  <object class="GtkLabel" id="label">
+                  <object class="GtkLabel" id="lbl-name">
                     <property name="visible">True</property>
-                    <property name="label">Steps: Null</property>
+                    <property name="label">Name: Null</property>
+                    <property name="halign">start</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Pointer propierties:</property>
+                    <property name="halign">start</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-pointer-minimum">
+                        <property name="visible">True</property>
+                        <property name="label">Minimum value: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-pointer-maximum">
+                        <property name="visible">True</property>
+                        <property name="label">Maximum value: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-pointer-default">
+                        <property name="visible">True</property>
+                        <property name="label">Default position: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">Steps:</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+
+                        <child>
+                          <object class="GtkLabel" id="lbl-pointer-steps-value">
+                            <property name="visible">True</property>
+                            <property name="label">Value: Null</property>
+                            <property name="halign">start</property>
+                          </object>
+                        </child>
+
+                        <child>
+                          <object class="GtkLabel" id="lbl-pointer-steps-size">
+                            <property name="visible">True</property>
+                            <property name="label">Size of each step: Null</property>
+                            <property name="halign">start</property>
+                          </object>
+                        </child>
+
+                        <child>
+                          <object class="GtkLabel" id="lbl-pointer-steps-response">
+                            <property name="visible">True</property>
+                            <property name="label">Haptic response: Null</property>
+                            <property name="halign">start</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Icon:</property>
+                    <property name="halign">start</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-icon-type">
+                        <property name="visible">True</property>
+                        <property name="label">Type: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-icon-color-on">
+                        <property name="visible">True</property>
+                        <property name="label">Color when off: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-icon-color-off">
+                        <property name="visible">True</property>
+                        <property name="label">Color when on: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Signal:</property>
+                    <property name="halign">start</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-signal-move">
+                        <property name="visible">True</property>
+                        <property name="label">On move: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkLabel" id="lbl-signal-hold">
+                        <property name="visible">True</property>
+                        <property name="label">On hold: Null</property>
+                        <property name="halign">start</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>

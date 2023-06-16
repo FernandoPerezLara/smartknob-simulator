@@ -21,8 +21,8 @@ void operator>>(const YAML::Node& node, Pointer& pointer) {
 
 void operator>>(const YAML::Node& node, Icon& icon) {
   icon.type = node["type"].as<std::string>();
-  icon.on_color = node["on_color"].as<std::string>();
-  icon.off_color = node["off_color"].as<std::string>();
+  icon.color_on = node["color_on"].as<std::string>();
+  icon.color_off = node["color_off"].as<std::string>();
 }
 
 void operator>>(const YAML::Node& node, Signal& signal) {

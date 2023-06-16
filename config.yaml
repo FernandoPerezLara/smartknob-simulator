@@ -10,8 +10,8 @@ cards:
         haptic_response: false
     icon:
       type: "lightbulb"
-      on_color: "yellow"
-      off_color: "white"
+      color_on: "yellow"
+      color_off: "white"
     signal:
       move: "set_brightness"
       hold: "toggle"
@@ -27,8 +27,8 @@ cards:
         haptic_response: true
     icon:
       type: "home"
-      on_color: "red"
-      off_color: "white"
+      color_on: "red"
+      color_off: "white"
     signal:
       move: "set_value"
       hold: "none"
