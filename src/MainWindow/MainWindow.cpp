@@ -20,12 +20,12 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   m_drawingArea->set_content_height(DISPLAY_SIZE);
   m_drawingArea->set_draw_func(sigc::mem_fun(*this, &MainWindow::on_draw));
 
+  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
+
   m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
   m_slider->signal_value_changed().connect(
       sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
   update_steps_label();
-
-  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
 }
 
 MainWindow* MainWindow::create() {
