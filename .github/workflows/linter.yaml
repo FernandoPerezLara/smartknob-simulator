@@ -1,0 +1,23 @@
+name: Check code style
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  linter:
+    name: Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build image
+        run: |
+          docker compose build linter
+
+      - name: Linter
+        run: |
+          docker compose run linter
