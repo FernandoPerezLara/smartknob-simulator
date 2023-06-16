@@ -23,16 +23,9 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
   m_slider->signal_value_changed().connect(
       sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
-
-  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
   update_steps_label();
 
-  // m_slider = m_refBuilder->get_widget<Gtk::Scale>("slider");
-  // auto click_gesture = Gtk::GestureClick::create();
-  // click_gesture->signal_released().connect([this](int, double, double){
-  //   this->m_slider->set_value(50);
-  // });
-  // m_drawingArea->add_controller(click_gesture);
+  m_label = m_refBuilder->get_widget<Gtk::Label>("label");
 }
 
 MainWindow* MainWindow::create() {

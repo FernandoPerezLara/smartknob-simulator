@@ -7,19 +7,19 @@ void Display::setCanvas(const Cairo::RefPtr<Cairo::Context>& cr) {
 }
 
 void Display::drawPixel(int x, int y, int color) {
-  int r = (color & 0xF800) >> 11;
-  int g = (color & 0x07E0) >> 5;
-  int b = (color & 0x001F);
+  double r = ((color >> 11) & 0x1F) / 31.0;
+  double g = ((color >> 5) & 0x3F) / 63.0;
+  double b = (color & 0x1F) / 31.0;
 
-  canvas->set_source_rgb(r / 31.0, g / 63.0, b / 31.0);
-  canvas->rectangle(x, y, 1, 1);
-  canvas->fill();
+  this->canvas->set_source_rgb(r, g, b);
+  this->canvas->rectangle(x, y, 1, 1);
+  this->canvas->fill();
 }
 
 void Display::drawLine(int x0, int y0, int x1, int y1, int color) {
-  int16_t dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-  int16_t dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-  int16_t error = dx + dy, e2;
+  int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+  int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+  int error = dx + dy, e2;
 
   while (true) {
     this->drawPixel(x0, y0, color);
@@ -41,11 +41,11 @@ void Display::drawLine(int x0, int y0, int x1, int y1, int color) {
 }
 
 void Display::drawCircleFill(int x, int y, int radius, int color) {
-  int16_t f = 1 - radius;
-  int16_t ddF_x = 1;
-  int16_t ddF_y = -2 * radius;
-  int16_t x1 = 0;
-  int16_t y1 = radius;
+  int f = 1 - radius;
+  int ddF_x = 1;
+  int ddF_y = -2 * radius;
+  int x1 = 0;
+  int y1 = radius;
 
   while (x1 < y1) {
     if (f >= 0) {
