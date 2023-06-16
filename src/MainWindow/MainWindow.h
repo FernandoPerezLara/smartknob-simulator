@@ -26,6 +26,8 @@ class MainWindow : public Gtk::ApplicationWindow {
     Gtk::Scale* m_slider { nullptr };
 
     static constexpr double DISPLAY_SIZE = 240;
+    static constexpr int POINTER_SIZE = 10 / 2;
+    static constexpr int POINTER_MARGIN = 7;
 
     Display display;
 };

@@ -48,15 +48,19 @@ void MainWindow::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
   cr->arc(DISPLAY_SIZE / 2, DISPLAY_SIZE / 2, DISPLAY_SIZE / 2, 0, 2 * M_PI);
   cr->fill();
 
-  display.drawPixel(120, 120, 0xF800);
-  display.drawPixel(120, 121, 0x001F);
-  display.drawPixel(121, 120, 0x07E0);
-  display.drawLine(0, 0, 240, 240, 0xF800);
-  display.drawCircleFill(120, 10, 5, 0x07E0);
+  int angle = m_slider->get_value() * 360 / 100;
+  int radius = (DISPLAY_SIZE / 2) - POINTER_SIZE - POINTER_MARGIN;
+
+  int x = DISPLAY_SIZE / 2 + radius * cos((angle - 45) * M_PI / 90);
+  int y = DISPLAY_SIZE / 2 + radius * sin((angle - 45) * M_PI / 90);
+
+  display.drawCircleFill(x, y, POINTER_SIZE, 0xFFFF);
 }
 
 void MainWindow::on_slider_value_changed() {
   update_steps_label();
+
+  m_drawingArea->queue_draw();
 }
 
 void MainWindow::update_steps_label() {
