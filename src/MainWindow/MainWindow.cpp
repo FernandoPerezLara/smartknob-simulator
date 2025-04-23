@@ -102,9 +102,9 @@ void MainWindow::on_dialog_response(int response_id) {
 
   if (response_id == Gtk::ResponseType::OK) {
     auto selected_uri = m_pDialog->get_file()->get_uri();
-    
+
     Cards profile;
-    
+
     profile.load_file(selected_uri.substr(7));
 
     auto card = profile.items[0];
