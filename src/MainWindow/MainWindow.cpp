@@ -2,8 +2,7 @@
 
 MainWindow::MainWindow(BaseObjectType* cobject,
                        const Glib::RefPtr<Gtk::Builder>& refBuilder) :
-    Gtk::ApplicationWindow(cobject),
-    m_refBuilder(refBuilder) {
+    Gtk::ApplicationWindow(cobject), m_refBuilder(refBuilder) {
   auto css_provider = Gtk::CssProvider::create();
   css_provider->load_from_resource(
       "/com/smartknob/simulator/MainWindow/style.css");
@@ -112,15 +111,15 @@ void MainWindow::on_dialog_response(int response_id) {
 
     m_lbl_name->set_label("Name: " + card.name);
     m_lbl_pointer_minimum->set_label("Minimum value: " +
-                                    std::to_string(card.pointer.minimum));
+                                     std::to_string(card.pointer.minimum));
     m_lbl_pointer_maximum->set_label("Maximum value: " +
-                                    std::to_string(card.pointer.maximum));
+                                     std::to_string(card.pointer.maximum));
     m_lbl_pointer_default->set_label(
         "Default position: " + std::to_string(card.pointer.default_position));
     m_lbl_pointer_steps_value->set_label(
         "Value: " + std::to_string(card.pointer.steps.value));
-    m_lbl_pointer_steps_size->set_label("Size of each step: " +
-                                        std::to_string(card.pointer.steps.size));
+    m_lbl_pointer_steps_size->set_label(
+        "Size of each step: " + std::to_string(card.pointer.steps.size));
     m_lbl_pointer_steps_response->set_label(
         std::string("Haptic response: ") +
         (card.pointer.steps.haptic_response ? "True" : "False"));
