@@ -14,6 +14,7 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   auto menu = m_refBuilder->get_object<Gio::MenuModel>("menu");
   m_gears = m_refBuilder->get_widget<Gtk::MenuButton>("gears");
   m_gears->set_menu_model(menu);
+  add_action("import", sigc::mem_fun(*this, &MainWindow::on_import));
 
   m_drawingArea = m_refBuilder->get_widget<Gtk::DrawingArea>("drawing_area");
   m_drawingArea->set_content_width(DISPLAY_SIZE);
@@ -46,8 +47,6 @@ MainWindow::MainWindow(BaseObjectType* cobject,
   m_slider->signal_value_changed().connect(
       sigc::mem_fun(*this, &MainWindow::on_slider_value_changed));
   // update_steps_label();
-
-  update_labels();
 }
 
 MainWindow* MainWindow::create() {
@@ -85,30 +84,52 @@ void MainWindow::on_slider_value_changed() {
   m_drawingArea->queue_draw();
 }
 
-void MainWindow::update_labels() {
-  cards.load_file("config.yaml");
+void MainWindow::on_import() {
+  m_pDialog.reset(new Gtk::FileChooserDialog(
+      *this, "Files", Gtk::FileChooser::Action::OPEN, true));
+  m_pDialog->set_transient_for(*this);
+  m_pDialog->set_modal(true);
+  m_pDialog->signal_response().connect(
+      sigc::mem_fun(*this, &MainWindow::on_dialog_response));
 
-  auto card = cards.items[0];
+  m_pDialog->add_button("Select File", Gtk::ResponseType::OK);
+  m_pDialog->add_button("_Cancel", Gtk::ResponseType::CANCEL);
 
-  m_lbl_name->set_label("Name: " + card.name);
-  m_lbl_pointer_minimum->set_label("Minimum value: " +
-                                   std::to_string(card.pointer.minimum));
-  m_lbl_pointer_maximum->set_label("Maximum value: " +
-                                   std::to_string(card.pointer.maximum));
-  m_lbl_pointer_default->set_label(
-      "Default position: " + std::to_string(card.pointer.default_position));
-  m_lbl_pointer_steps_value->set_label(
-      "Value: " + std::to_string(card.pointer.steps.value));
-  m_lbl_pointer_steps_size->set_label("Size of each step: " +
-                                      std::to_string(card.pointer.steps.size));
-  m_lbl_pointer_steps_response->set_label(
-      std::string("Haptic response: ") +
-      (card.pointer.steps.haptic_response ? "True" : "False"));
-  m_lbl_icon_type->set_label("Type: " + card.icon.type);
-  m_lbl_icon_color_off->set_label("Color when off: " + card.icon.color_off);
-  m_lbl_icon_color_on->set_label("Color when on: " + card.icon.color_on);
-  m_lbl_signal_move->set_label("On move: " + card.signal.move);
-  m_lbl_signal_hold->set_label("On hold: " + card.signal.hold);
+  m_pDialog->show();
+}
+
+void MainWindow::on_dialog_response(int response_id) {
+  m_pDialog->hide();
+
+  if (response_id == Gtk::ResponseType::OK) {
+    auto selected_uri = m_pDialog->get_file()->get_uri();
+    
+    Cards profile;
+    
+    profile.load_file(selected_uri.substr(7));
+
+    auto card = profile.items[0];
+
+    m_lbl_name->set_label("Name: " + card.name);
+    m_lbl_pointer_minimum->set_label("Minimum value: " +
+                                    std::to_string(card.pointer.minimum));
+    m_lbl_pointer_maximum->set_label("Maximum value: " +
+                                    std::to_string(card.pointer.maximum));
+    m_lbl_pointer_default->set_label(
+        "Default position: " + std::to_string(card.pointer.default_position));
+    m_lbl_pointer_steps_value->set_label(
+        "Value: " + std::to_string(card.pointer.steps.value));
+    m_lbl_pointer_steps_size->set_label("Size of each step: " +
+                                        std::to_string(card.pointer.steps.size));
+    m_lbl_pointer_steps_response->set_label(
+        std::string("Haptic response: ") +
+        (card.pointer.steps.haptic_response ? "True" : "False"));
+    m_lbl_icon_type->set_label("Type: " + card.icon.type);
+    m_lbl_icon_color_off->set_label("Color when off: " + card.icon.color_off);
+    m_lbl_icon_color_on->set_label("Color when on: " + card.icon.color_on);
+    m_lbl_signal_move->set_label("On move: " + card.signal.move);
+    m_lbl_signal_hold->set_label("On hold: " + card.signal.hold);
+  }
 }
 
 // void MainWindow::update_steps_label() {

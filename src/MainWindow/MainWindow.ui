@@ -216,7 +216,8 @@
   <menu id="menu">
     <section>
       <item>
-        <attribute name="label">Clear canvas</attribute>
+        <attribute name="label">Import new profile</attribute>
+        <attribute name="action">win.import</attribute>
       </item>
     </section>
     <section>

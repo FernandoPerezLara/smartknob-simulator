@@ -2,6 +2,7 @@
 #define MainWindow_h
 
 #include "gtkmm.h"
+#include <iostream>
 
 #include "../Cards/Cards.h"
 #include "../Display/Display.h"
@@ -16,10 +17,11 @@ class MainWindow : public Gtk::ApplicationWindow {
   private:
     void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
                  int height);
+    void on_import();
     void on_slider_value_changed();
+    void on_dialog_response(int response_id);
 
     // void update_steps_label();
-    void update_labels();
 
     Glib::RefPtr<Gtk::Builder> m_refBuilder;
     Gtk::MenuButton* m_gears { nullptr };
@@ -38,13 +40,13 @@ class MainWindow : public Gtk::ApplicationWindow {
     Gtk::Label* m_lbl_icon_color_off { nullptr };
     Gtk::Label* m_lbl_signal_move { nullptr };
     Gtk::Label* m_lbl_signal_hold { nullptr };
+    std::unique_ptr<Gtk::FileChooserDialog> m_pDialog;
 
     static constexpr double DISPLAY_SIZE = 240;
     static constexpr int POINTER_SIZE = 10 / 2;
     static constexpr int POINTER_MARGIN = 7;
 
     Display display;
-    Cards cards;
 };
 
 #endif
